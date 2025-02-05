@@ -73,3 +73,19 @@ def evaluate(model, valid_loader, criterion, device):
     avg_valid_loss = running_loss / len(valid_loader)
 
     return accuracy, avg_valid_loss
+
+def index2word(vocab):
+    dict = {}
+
+    for key in vocab.keys():
+        dict[vocab[key]] = key
+
+    return dict
+
+def encode2sentence(index_dict, encode_sentence):
+    result = ""
+    for index in encode_sentence:
+        if index.item() > 2:
+            result += index_dict[index.item()] + " "
+
+    return result
