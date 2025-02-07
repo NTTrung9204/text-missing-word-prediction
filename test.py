@@ -38,6 +38,17 @@ x = torch.zeros(batch_size, max_len).long().to(device)
 
 summary(model, input_data=x)
 
+# if os.path.exists(vocab_file_path):
+#     with open(vocab_file_path, 'rb') as f:
+#         vocab_dict = pickle.load(f)
+# else:
+#     vocab_builder = VocabularyBuilder(DATASET_PATH)
+#     vocab_builder.build_vocab()
+#     vocab_dict = vocab_builder.get_vocab()
+
+#     with open(vocab_file_path, 'wb') as f:
+#         pickle.dump(vocab_dict, f)
+
 # ==========================================================================================
 # Layer (type:depth-idx)                   Output Shape              Param #
 # ==========================================================================================
