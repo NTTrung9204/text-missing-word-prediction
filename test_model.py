@@ -27,7 +27,7 @@ MAX_LEN = vocab_builder.get_longest_sentence_length()
 dataset_builder = DatasetBuilder(vocab_dict, max_len=MAX_LEN)
 
 model = TransformerModel(vocab_size=VOCAB_SIZE, embedding_dim=EMBEDDING_DIM, hidden_dim=HIDDEN_DIM, num_layers=NUM_LAYERS, num_classes=VOCAB_SIZE)
-model.load_state_dict(torch.load("kaggle.pth"))
+model.load_state_dict(torch.load("Transformer_model.pth"))
 model.eval()
 model = model.to(device)
 
