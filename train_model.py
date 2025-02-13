@@ -1,6 +1,6 @@
 import torch.nn as nn
 from Vocab_Builder import VocabularyBuilder, DatasetBuilder, ClozeTestDataset
-from build_model import LSTMModel
+from build_model import LSTMModel, TransformerModel
 import torch
 import matplotlib.pyplot as plt
 import torch.optim as optim
@@ -8,7 +8,7 @@ from utils import train
 from torch.utils.data import DataLoader
 
 if __name__ == "__main__":
-    DATASET_PATH = "dataset/dataset_2017.csv"
+    DATASET_PATH = "dataset/main_dataset.csv"
     EMBEDDING_DIM = 256
     HIDDEN_DIM = 256
     NUM_LAYERS = 3
@@ -25,11 +25,11 @@ if __name__ == "__main__":
 
     VOCAB_SIZE = len(vocab_dict.items()) + 3
 
-    print(f"\nVocab size: {VOCAB_SIZE}")
-
     sentences = vocab_builder.get_sentences_list()
 
     max_len = vocab_builder.get_longest_sentence_length()
+
+    print(f"\nVocab size: {VOCAB_SIZE}, max length: {max_len}")
 
     dataset_builder = DatasetBuilder(vocab_dict, max_len=max_len)
 
@@ -47,10 +47,11 @@ if __name__ == "__main__":
     print(f"Train set size: {len(train_set)}")
     print(f"Test set size: {len(test_set)}")
 
-    train_data_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
+    train_data_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
     test_data_loader = DataLoader(test_set, batch_size=BATCH_SIZE)
 
-    model = LSTMModel(vocab_size=VOCAB_SIZE, embedding_dim=EMBEDDING_DIM, hidden_dim=HIDDEN_DIM, num_layers=NUM_LAYERS, num_classes=VOCAB_SIZE)
+    # model = LSTMModel(vocab_size=VOCAB_SIZE, embedding_dim=EMBEDDING_DIM, hidden_dim=HIDDEN_DIM, num_layers=NUM_LAYERS, num_classes=VOCAB_SIZE)
+    model = TransformerModel(vocab_size=VOCAB_SIZE, embedding_dim=EMBEDDING_DIM, hidden_dim=HIDDEN_DIM, num_layers=NUM_LAYERS, num_classes=VOCAB_SIZE)
     model = model.to(device)
 
     criterion = nn.CrossEntropyLoss()
