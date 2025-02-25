@@ -1,5 +1,5 @@
 # The project uses PyTorch to train a model for filling in the blanks in a sentence to complete it.
-- input: "After long day at work <mask> decided to relax by taking walk in park and enjoying fresh air"
+- input: "After long day at work <___> decided to relax by taking walk in park and enjoying fresh air"
 - output: After long day at work he decided to relax by taking walk in park and enjoying fresh air
 
 ## Model structure.
